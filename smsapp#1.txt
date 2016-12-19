@@ -1,0 +1,36 @@
+//app#1
+SerialPort.list(function (err, ports) {
+  ports.forEach(function(port) {
+     if(port.pnpId==undefined){
+      currentPort=port.comName
+    }
+  });
+  modem.open(currentPort, function(err,success){
+    if(err){
+      console.log("Conn failed",err);
+    }
+    else{
+      console.log("Conn success");
+      //console.log(str.length);
+    }
+  });
+});
+
+
+app.get('/',function(req,res){
+    	modem.sms({text:"test" ,receiver:"03330544666",encoding:'16bit'}, function(err, sent_ids) {  
+            console.log('sms service');
+            if(err)
+             console.log('Error sending sms:', err);
+             else
+             console.log('Message sent successfully, here are reference ids:', sent_ids.join(','));
+            });	
+  res.send("message sent");
+})
+var port=process.env.PORT||3000;
+var server=app.listen(port,function () {
+    var listenport=server.address().port;
+    console.log("server is listening at port: "+listenport);
+})
+
+"PANIC BUTTON INSTALL BNK-7071 001 ABL Paria street site avenue karachi 03413326418 03160241802"
